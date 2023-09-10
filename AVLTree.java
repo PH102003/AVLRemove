@@ -20,12 +20,15 @@ public class AVLTree<T extends Comparable<T>> {
     }
 
     private AVLNode<T> inserirNo(AVLNode<T> raiz, T value) {
+             AVLNode<T> no = new AVLNode<>(value);
         if (raiz == null) {
             // lógica pra saber se o nó inserido vai pra direita ou esquerda
             raiz = new AVLNode<>(value);
         } else if (value.compareTo(raiz.getInfo()) < 0) {
+           
             raiz.setLeft(inserirNo(raiz.getLeft(), value));
         } else {
+            
             raiz.setRight(inserirNo(raiz.getRight(), value));
         }
         return raiz;
@@ -51,19 +54,66 @@ public class AVLTree<T extends Comparable<T>> {
         }
     }
 
-    public AVLNode<T> rotaçaoSimplesEsq() {
+    public void rotaçaoSimplesEsq() {
+            if(root != null){
+                root = rotacaoSimplesEsq(root);
+            }
+        
+    }
+    private AVLNode<T> rotacaoSimplesEsq(AVLNode<T> raiz){
+        AVLNode <T> raizAux = raiz.getRight();
+        raiz.setRight(raizAux.getLeft());
+        raizAux.setLeft(raiz);
+        //lógica de transformar o filho a direita como raiz
+
+        return raizAux;
+
+        
 
     }
 
-    public AVLNode<T> rotaçaoDuplaEsq() {
+    public void rotaçaoDuplaEsq() {
+        if(root != null){
+            root = rotaçaoDuplaEsq(root);
+        }
+    }
+    private AVLNode<T> rotaçaoDuplaEsq(AVLNode<T> raiz){
+        raiz.setRight(rotacaoSimplesDirt(raiz.getRight()));
+        /*utilização do método de rotação simples a direita seguido de rotação simples a esquerda,
+        visto que uma rotação dupla é composta de duas rotações simples 
+        */
+        return rotacaoSimplesEsq(raiz);
 
     }
 
-    public AVLNode<T> rotaçaoSimplesDirt(){
+    public void rotaçaoSimplesDirt(){
+        if(root != null){
+            root = rotacaoSimplesDirt(root);
+        }
+        
+    }
+    private AVLNode<T> rotacaoSimplesDirt(AVLNode<T> raiz){
+        AVLNode<T> raizAux = raiz.getLeft();
+        
+        raiz.setLeft(raizAux.getRight());
+        
+        raizAux.setRight(raiz);
+        
+        return raizAux;
+        //lógica para transformar um filho da esquerda como raiz
     }
 
-    public AVLNode<T> rotaçaoDuplaDirt(){
+    public void rotaçaoDuplaDirt(){
+        if(root != null){
+
+        }
 
     }
+    private AVLNode<T> rotaçaoDuplaDirt(AVLNode<T> raiz){
+        raiz.setLeft(rotacaoSimplesEsq(raiz.getLeft()));
+        //lógica contrária à rotaçao dupla a esquerda
+        return rotacaoSimplesDirt(raiz);
+    }
+
 }
 
