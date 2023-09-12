@@ -25,7 +25,7 @@ public class AVLTree<T extends Comparable<T>> {
             // lógica pra saber se o nó inserido vai pra direita ou esquerda
             raiz = new AVLNode<>(value);
         } else if (value.compareTo(raiz.getInfo()) < 0) {
-           
+            
             raiz.setLeft(inserirNo(raiz.getLeft(), value));
         } else {
             
@@ -64,7 +64,7 @@ public class AVLTree<T extends Comparable<T>> {
         AVLNode <T> raizAux = raiz.getRight();
         raiz.setRight(raizAux.getLeft());
         raizAux.setLeft(raiz);
-        //lógica de transformar o filho a direita como raiz
+        //lógica de transformar o filho a direita como 'raiz'
 
         return raizAux;
 
@@ -100,12 +100,12 @@ public class AVLTree<T extends Comparable<T>> {
         raizAux.setRight(raiz);
         
         return raizAux;
-        //lógica para transformar um filho da esquerda como raiz
+        //lógica para transformar um filho da esquerda como 'raiz'
     }
 
     public void rotaçaoDuplaDirt(){
         if(root != null){
-
+            root = rotaçaoDuplaDirt(root);
         }
 
     }
@@ -114,6 +114,11 @@ public class AVLTree<T extends Comparable<T>> {
         //lógica contrária à rotaçao dupla a esquerda
         return rotacaoSimplesDirt(raiz);
     }
+    
+    
+        
+    }
 
-}
+
+
 
