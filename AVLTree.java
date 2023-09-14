@@ -26,11 +26,11 @@ public class AVLTree<T extends Comparable<T>> {
         } else if (value.compareTo(raiz.getInfo()) < 0) {
             raiz.setLeft(inserirNo(raiz.getLeft(), value));
             if (raiz.getFatBal() < -1) {
-                // Rotação Simples à Direita
+                // rotaçao simples a dir
                 raiz = rotacaoSimplesDirt(raiz);
             } else if (raiz.getLeft().getFatBal() >= 0) {
-                // Rotação Dupla à Esquerda (Esquerda-Direita)
-                raiz = rotaçaoDuplaEsq(raiz);
+                // rotaçao dupla à esq
+                raiz = rotaçaoDuplaDirt(raiz);
             }
         
         } else {
