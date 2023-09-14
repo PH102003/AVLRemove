@@ -20,16 +20,22 @@ public class AVLTree<T extends Comparable<T>> {
     }
 
     private AVLNode<T> inserirNo(AVLNode<T> raiz, T value) {
-             AVLNode<T> no = new AVLNode<>(value);
         if (raiz == null) {
             // lógica pra saber se o nó inserido vai pra direita ou esquerda
             raiz = new AVLNode<>(value);
         } else if (value.compareTo(raiz.getInfo()) < 0) {
-            
             raiz.setLeft(inserirNo(raiz.getLeft(), value));
+            if (raiz.getFatBal() < -1) {
+                // Rotação Simples à Direita
+                raiz = rotacaoSimplesDirt(raiz);
+            } else if (raiz.getLeft().getFatBal() >= 0) {
+                // Rotação Dupla à Esquerda (Esquerda-Direita)
+                raiz = rotaçaoDuplaEsq(raiz);
+            }
+        
         } else {
-            
             raiz.setRight(inserirNo(raiz.getRight(), value));
+            
         }
         return raiz;
 
