@@ -32,6 +32,12 @@ public class AVLTree<T extends Comparable<T>> {
                 // rotaçao dupla à dirt
                 raiz = rotaçaoDuplaDirt(raiz);
             }
+            if(raiz.getFatBal()> 1){
+                raiz= rotacaoSimplesEsq(raiz);
+                
+            }else if(){
+                //logica pra rotaçao dupla a esq
+            }
         
         } else {
             raiz.setRight(inserirNo(raiz.getRight(), value));
