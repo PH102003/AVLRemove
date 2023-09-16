@@ -1,6 +1,7 @@
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.management.RuntimeErrorException;
 import javax.swing.tree.TreeNode;
 
 public class AVLTree<T extends Comparable<T>> {
@@ -133,6 +134,17 @@ public class AVLTree<T extends Comparable<T>> {
         raiz.setLeft(rotacaoSimplesEsq(raiz.getLeft()));
         //lógica contrária à rotaçao dupla a esquerda
         return rotacaoSimplesDirt(raiz);
+    }
+    public void removeNode(T value){
+        if (value == null) {
+           throw new RuntimeErrorException(null, "Não pode ser removida(valor 'null')");
+        } else {
+            root = removeNode(root, value);
+        }
+    }
+    private AVLNode<T> removeNode(AVLNode<T> raiz, T value){
+        
+        return raiz;
     }
     
     
