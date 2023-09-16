@@ -29,18 +29,19 @@ public class AVLTree<T extends Comparable<T>> {
                 // rotaçao simples a dir
                 raiz = rotacaoSimplesDirt(raiz);
             } else if (raiz.getLeft().getFatBal() >= 0) {
-                // rotaçao dupla à dirt
-                raiz = rotaçaoDuplaDirt(raiz);
+            // rotaçao dupla à dirt
+            raiz = rotaçaoDuplaDirt(raiz);
             }
+            
+        } else {
+            raiz.setRight(inserirNo(raiz.getRight(), value));
             if(raiz.getFatBal()> 1){
                 raiz= rotacaoSimplesEsq(raiz);
                 
-            }else if(){
+            }else if(raiz.getRight().getFatBal() < 0){
+                raiz = rotaçaoDuplaEsq(raiz);
                 //logica pra rotaçao dupla a esq
             }
-        
-        } else {
-            raiz.setRight(inserirNo(raiz.getRight(), value));
             
         }
         return raiz;
@@ -74,10 +75,14 @@ public class AVLTree<T extends Comparable<T>> {
     }
     private AVLNode<T> rotacaoSimplesEsq(AVLNode<T> raiz){
         AVLNode <T> raizAux = raiz.getRight();
+        /*
+        visto que só é possivel fazer uma rotação à esq através de uma inserção a dir,
+        estou me baseando no nó inserido a direita (raiz.getRight)
+         */
         raiz.setRight(raizAux.getLeft());
         raizAux.setLeft(raiz);
         //lógica de transformar o filho a direita como 'raiz'
-
+        
         return raizAux;
 
         
@@ -106,13 +111,16 @@ public class AVLTree<T extends Comparable<T>> {
     }
     private AVLNode<T> rotacaoSimplesDirt(AVLNode<T> raiz){
         AVLNode<T> raizAux = raiz.getLeft();
-        
+        /* 
+        visto que só é possivel fazer uma rotação a direita através de uma inserção a esq,
+        estou me baseando no nó inserido a esq (raiz.getLeft)
+         */
         raiz.setLeft(raizAux.getRight());
         
         raizAux.setRight(raiz);
+        //lógica para transformar um filho da esquerda como 'raiz'
         
         return raizAux;
-        //lógica para transformar um filho da esquerda como 'raiz'
     }
 
     public void rotaçaoDuplaDirt(){
