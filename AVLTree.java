@@ -135,36 +135,66 @@ public class AVLTree<T extends Comparable<T>> {
         //lógica contrária à rotaçao dupla a esquerda
         return rotacaoSimplesDirt(raiz);
     }
-    public void removeNode(T value){
-        if (value == null) {
-           throw new RuntimeErrorException(null, "Não pode ser removida(valor 'null')");
-        } else {
-            root = removeNode(root, value);
+    private AVLNode<T> removeNode(AVLNode<T> raiz, T value) {
+        // Verifica se a raiz é nula (caso base da recursão).
+        if (raiz == null) {
+            return raiz;
         }
-    }
-    private AVLNode<T> removeNode(AVLNode<T> raiz, T value){
-        /*
-         * if(raiz.getLeft().getRight() != null && raiz.getRight() != null){
-            while(raiz.getRight()!= null){
+    
+        // verifica se é menor que o valor da raiz
+        if (value.compareTo(raiz.getInfo()) < 0) {
+            raiz.setLeft(removeNode(raiz.getLeft(), value));
+        }
+        // verifica se é maior que o valor da raiz
+        else if (value.compareTo(raiz.getInfo()) > 0) {
+            raiz.setRight(removeNode(raiz.getRight(), value));
+        }
+        // encontrado o nó que desejamos remover
+        else {
+            // verifica se o nó tem nenhum ou um filho
+            if (raiz.getLeft() == null) {
+                // retorna o filho direito, se houver (ou null, caso contrário)
+                return raiz.getRight();
+            } else if (raiz.getRight() == null) {
+                // retorna o filho esquerdo, porque não tem filho direito.
+                return raiz.getLeft();
+            }else{
 
-                raiz = raiz.getLeft().getRight();
+                // nó com dois filhos
+                // Encontramos o maior valor na subárvore esquerda.
+                T maxValue = maiorDaEsq(raiz.getLeft());
+                raiz.setInfo(maxValue);
+                raiz.setLeft(removeNode(raiz.getLeft(), maxValue));
             }
+
+    
         }
-         */
-        if(raiz.getLeft().getRight() != null && raiz.getRight() != null){
-            if(raiz.getLeft() == null){
-            raiz = raiz.getRight();
-            if(raiz.getRight() == null){
-                raiz = raiz.getRight();
-            }
-                
-            }
-            while(raiz.getRight()!= null){
-            raiz = raiz.getLeft().getRight();
-            }
-        }
-        
+    
         return raiz;
+    }
+    
+    private T maiorDaEsq(AVLNode<T> no){
+        //lógica pra pegar o maior valor a esquerda
+        T maxValue = no.getInfo();
+        while(no.getRight() != null){
+            maxValue = no.getRight().getInfo();
+            no = no.getRight();
+        }
+        return maxValue;
+
+    }
+    public LinkedList<T> passeioEmOrdem() {
+        LinkedList<T> newList = new LinkedList<>();
+        passeioEmOrdem(root, newList); // chamada recursiva do método com "root"
+        return newList;
+    }
+
+    private void passeioEmOrdem(AVLNode<T> atual, LinkedList<T> newList) {
+        if (atual != null) {
+            passeioEmOrdem(atual.getLeft(), newList);
+            newList.add(atual.getInfo()); // extraindo o valor de "Integer"
+            passeioEmOrdem(atual.getRight(), newList);
+        }
     }
     
     
