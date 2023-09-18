@@ -143,6 +143,26 @@ public class AVLTree<T extends Comparable<T>> {
         }
     }
     private AVLNode<T> removeNode(AVLNode<T> raiz, T value){
+        /*
+         * if(raiz.getLeft().getRight() != null && raiz.getRight() != null){
+            while(raiz.getRight()!= null){
+
+                raiz = raiz.getLeft().getRight();
+            }
+        }
+         */
+        if(raiz.getLeft().getRight() != null && raiz.getRight() != null){
+            if(raiz.getLeft() == null){
+            raiz = raiz.getRight();
+            if(raiz.getRight() == null){
+                raiz = raiz.getRight();
+            }
+                
+            }
+            while(raiz.getRight()!= null){
+            raiz = raiz.getLeft().getRight();
+            }
+        }
         
         return raiz;
     }
