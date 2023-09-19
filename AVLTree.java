@@ -191,6 +191,24 @@ public class AVLTree<T extends Comparable<T>> {
 
     
         }
+        //desequilibrio a esq
+        if (raiz.getFatBal() > 1) {
+            if (value.compareTo(raiz.getLeft().getInfo()) < 0) {
+                return rotacaoSimplesEsq(raiz);
+            } else {
+                return rotaçaoDuplaEsq(raiz);
+            }
+        }
+        // desequilibrio à direita
+        else if (raiz.getFatBal() < -1) {
+            if (value.compareTo(raiz.getRight().getInfo()) > 0) {
+                return rotacaoSimplesDirt(raiz);
+            }else {
+                return rotaçaoDuplaDirt(raiz);
+            }
+        }
+    
+        
     
         return raiz;
     }
@@ -222,7 +240,4 @@ public class AVLTree<T extends Comparable<T>> {
     
         
     }
-
-
-
-
+//ns se tá certo, não entendi fatbal direito :)
