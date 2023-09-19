@@ -3,6 +3,7 @@ public class Main {
         AVLTree<Integer> avlTree = new AVLTree<>();
 
         // Inserção de valores
+        avlTree.inserir(23);
         avlTree.inserir(50);
         avlTree.inserir(30);
         
