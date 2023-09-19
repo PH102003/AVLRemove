@@ -69,72 +69,94 @@ public class AVLTree<T extends Comparable<T>> {
     }
 
     public void rotaçaoSimplesEsq() {
-            if(root != null){
+        if (root != null && root.getRight() != null) {
                 root = rotacaoSimplesEsq(root);
             }
         
     }
     private AVLNode<T> rotacaoSimplesEsq(AVLNode<T> raiz){
-        AVLNode <T> raizAux = raiz.getRight();
-        /*
-        visto que só é possivel fazer uma rotação à esq através de uma inserção a dir,
-        estou me baseando no nó inserido a direita (raiz.getRight)
-         */
-        raiz.setRight(raizAux.getLeft());
-        raizAux.setLeft(raiz);
+        if(raiz != null && raiz.getRight()!= null){
+
+            AVLNode <T> raizAux = raiz.getRight();
+            /*
+            visto que só é possivel fazer uma rotação à esq através de uma inserção a dir,
+            estou me baseando no nó inserido a direita (raiz.getRight)
+             */
+            raiz.setRight(raizAux.getLeft());
+            raizAux.setLeft(raiz);
+            return raizAux;
+        }
         //lógica de transformar o filho a direita como 'raiz'
         
-        return raizAux;
-
+        return raiz;
         
 
     }
 
     public void rotaçaoDuplaEsq() {
-        if(root != null){
+        if(root != null && root.getLeft() != null){
             root = rotaçaoDuplaEsq(root);
         }
     }
     private AVLNode<T> rotaçaoDuplaEsq(AVLNode<T> raiz){
+        if (raiz != null && raiz.getRight() != null) {
+
         raiz.setRight(rotacaoSimplesDirt(raiz.getRight()));
         /*utilização do método de rotação simples a direita seguido de rotação simples a esquerda,
         visto que uma rotação dupla é composta de duas rotações simples 
         */
         return rotacaoSimplesEsq(raiz);
-
+        }
+        return raiz;
     }
 
     public void rotaçaoSimplesDirt(){
-        if(root != null){
+        if(root != null && root.getLeft()!= null){
             root = rotacaoSimplesDirt(root);
         }
         
     }
     private AVLNode<T> rotacaoSimplesDirt(AVLNode<T> raiz){
-        AVLNode<T> raizAux = raiz.getLeft();
-        /* 
-        visto que só é possivel fazer uma rotação a direita através de uma inserção a esq,
-        estou me baseando no nó inserido a esq (raiz.getLeft)
-         */
-        raiz.setLeft(raizAux.getRight());
-        
-        raizAux.setRight(raiz);
-        //lógica para transformar um filho da esquerda como 'raiz'
-        
-        return raizAux;
+        if(raiz != null && raiz.getLeft() != null){
+
+            AVLNode<T> raizAux = raiz.getLeft();
+            /* 
+            visto que só é possivel fazer uma rotação a direita através de uma inserção a esq,
+            estou me baseando no nó inserido a esq (raiz.getLeft)
+             */
+            raiz.setLeft(raizAux.getRight());
+            
+            raizAux.setRight(raiz);
+            //lógica para transformar um filho da esquerda como 'raiz'
+            
+            return raizAux;
+        }
+        return raiz;
     }
 
     public void rotaçaoDuplaDirt(){
-        if(root != null){
+        if(root != null && root.getLeft()!= null){
             root = rotaçaoDuplaDirt(root);
         }
 
     }
     private AVLNode<T> rotaçaoDuplaDirt(AVLNode<T> raiz){
-        raiz.setLeft(rotacaoSimplesEsq(raiz.getLeft()));
-        //lógica contrária à rotaçao dupla a esquerda
-        return rotacaoSimplesDirt(raiz);
+        if(raiz != null && raiz.getLeft() != null){
+
+            raiz.setLeft(rotacaoSimplesEsq(raiz.getLeft()));
+            //lógica contrária à rotaçao dupla a esquerda
+            return rotacaoSimplesDirt(raiz);
+        } 
+        return raiz;
     }
+    public void removeNode(T value){
+        if (value == null) {
+           throw new RuntimeErrorException(null, "Não pode ser removida(valor 'null')");
+        } else {
+            root = removeNode(root, value);
+        }
+    }
+
     private AVLNode<T> removeNode(AVLNode<T> raiz, T value) {
         // Verifica se a raiz é nula (caso base da recursão).
         if (raiz == null) {

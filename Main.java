@@ -1,17 +1,21 @@
-
 public class Main {
     public static void main(String[] args) {
-        
-        AVLTree<Integer> tree = new AVLTree<>();
+        AVLTree<Integer> avlTree = new AVLTree<>();
 
-        tree.inserir(10);
-        tree.inserir(5);
-        tree.inserir(15);
-        tree.inserir(3);
-        tree.inserir(7);
-    
-        System.out.println("Árvore está vazia? " + tree.isEmpty());
+        // Inserção de valores
+        avlTree.inserir(50);
+        avlTree.inserir(30);
         
-            
+
+        System.out.println("Árvore AVL após inserções:");
+        System.out.println("Passeio em ordem: " + avlTree.passeioEmOrdem());
+        System.out.println("Altura da árvore: " + avlTree.passeioPorNivel());
+
+        // Remover um valor
+        avlTree.removeNode(80);
+
+        System.out.println("\nÁrvore AVL após remoção:");
+        System.out.println("Passeio em ordem: " + avlTree.passeioEmOrdem());
+        System.out.println("Altura da árvore: " + avlTree.passeioPorNivel());
     }
 }
