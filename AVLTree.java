@@ -237,7 +237,41 @@ public class AVLTree<T extends Comparable<T>> {
         }
     }
     
+    /*public class Altura <T extends Comparable<T>>{
+    public int getAltura(AVLNode<T> raiz){
+        int contadorAltura = 0;
+        //caso base
+        if(raiz == null){
+            return contadorAltura;
+        }
+        //enquanto a 'raiz' não apontar para null
+            while(raiz != null){
+                //se for maior ou igual a 1, tende a ir pra direita
+                if(raiz.getFatBal() >= 1){
+                    contadorAltura += 1;
+                    raiz = raiz.getRight();
+                }else if(raiz.getFatBal() < 0){
+                    //se for menor que zero, tende a ir pra esquerda
+                    contadorAltura += 1; //incremento altura
+                    raiz = raiz.getLeft();
+                }else{
+                    if(raiz.getLeft() == null && raiz.getRight() == null){
+                        //no caso de ser folha
+                        return contadorAltura;
+                    }else{
+                        //independe, pois, aqui já é no caso onde se tem "2 filhos"
+                        raiz = raiz.getLeft();
+                    }
+                }
     
+            
+           
+               
+}
+return contadorAltura;
+}
+}
+    */
         
     }
 //ns se tá certo, não entendi fatbal direito :)
